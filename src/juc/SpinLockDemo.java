@@ -3,7 +3,7 @@ package juc;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
-/*
+/**
  * 自旋锁
  * 尝试获取的线程不会立即阻塞，而是采用循环的方式去尝试获取锁
  * 这样的好处是减少了线程上下文切换的消耗，缺点是循环会消耗CPU
@@ -14,7 +14,7 @@ public class SpinLockDemo {
 
     public void myLock(){
         Thread thread = Thread.currentThread();
-        System.out.println(thread.getName()+"\t come in ");
+        System.out.println(thread.getName()+"\t comes in ");
         while(!atomicReference.compareAndSet(null,thread)){
 
         }

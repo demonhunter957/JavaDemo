@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-/*
- * 独占锁：指该锁一次只能被一个线程占有。ReetrantLock和synchronized都是独占锁
+/**
+ * 独占锁：指该锁一次只能被一个线程占有。ReentrantLock和synchronized都是独占锁
  * 共享锁：指该锁可以被多个线程所持有
  * 对ReentrantReadWriteLock而言，其读锁是共享锁，写锁是独占锁
  *
@@ -17,9 +17,11 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 
 class MyCache{
+
     private volatile Map<String,Object> map = new HashMap<>();
     //    private Lock lock = new ReentrantLock();
     private ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
+
     public void put(String key,Object value){
 
         reentrantReadWriteLock.writeLock().lock();
@@ -58,17 +60,19 @@ class MyCache{
 }
 
 public class ReadWriteLockDemo {
+
     public static void main(String[] args){
+
         MyCache myCache = new MyCache();
 
-        for(int i=1;i<=5;i++){
+        for(int i = 1; i <= 5; i++){
             final int tempInt = i;
             new Thread(()->{
                 myCache.put(tempInt+"",tempInt+"");
             },String.valueOf(i)).start();
         }
 
-        for(int i=1;i<=5;i++){
+        for(int i = 1; i <= 5; i++){
             final int tempInt = i;
             new Thread(()->{
                 myCache.get(tempInt+"");

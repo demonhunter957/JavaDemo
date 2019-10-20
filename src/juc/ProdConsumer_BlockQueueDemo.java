@@ -60,6 +60,7 @@ class MyResource{
 public class ProdConsumer_BlockQueueDemo {
 
     public static void main(String[] args) throws Exception{
+
         MyResource myResource = new MyResource(new ArrayBlockingQueue<>(10));
 
         new Thread(()->{
