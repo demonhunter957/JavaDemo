@@ -18,11 +18,11 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 class MyCache{
 
-    private volatile Map<String,Object> map = new HashMap<>();
+    private volatile Map<String, Object> map = new HashMap<>();
     //    private Lock lock = new ReentrantLock();
     private ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
 
-    public void put(String key,Object value){
+    public void put(String key, Object value){
 
         reentrantReadWriteLock.writeLock().lock();
         try{
@@ -67,16 +67,12 @@ public class ReadWriteLockDemo {
 
         for(int i = 1; i <= 5; i++){
             final int tempInt = i;
-            new Thread(()->{
-                myCache.put(tempInt+"",tempInt+"");
-            },String.valueOf(i)).start();
+            new Thread(()-> myCache.put(tempInt+"",tempInt),String.valueOf(i)).start();
         }
 
         for(int i = 1; i <= 5; i++){
             final int tempInt = i;
-            new Thread(()->{
-                myCache.get(tempInt+"");
-            },String.valueOf(i)).start();
+            new Thread(()-> myCache.get(tempInt+""),String.valueOf(i)).start();
         }
     }
 }

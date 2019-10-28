@@ -4,8 +4,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicStampedReference;
 
-/*
- * ABA问题的解决  AtomicStampedReference
+/**
+ * ABA问题的解决：使用AtomicStampedReference
+ * AtomicStampedReference比AtomicReference多了一个时间戳，提供了一个版本号
  * */
 public class ABADemo {
 

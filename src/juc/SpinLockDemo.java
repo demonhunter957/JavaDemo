@@ -13,17 +13,15 @@ public class SpinLockDemo {
     AtomicReference<Thread> atomicReference = new AtomicReference<>();
 
     public void myLock(){
-        Thread thread = Thread.currentThread();
-        System.out.println(thread.getName()+"\t comes in ");
-        while(!atomicReference.compareAndSet(null,thread)){
-
-        }
+        Thread currentThread = Thread.currentThread();
+        System.out.println(currentThread.getName()+"\t comes in ");
+        while(!atomicReference.compareAndSet(null, currentThread)){}
     }
 
     public void myUnLock(){
-        Thread thread = Thread.currentThread();
-        atomicReference.compareAndSet(thread,null);
-        System.out.println(Thread.currentThread().getName()+"\t invoked myUnLock()");
+        Thread currentThread = Thread.currentThread();
+        atomicReference.compareAndSet(currentThread,null);
+        System.out.println(currentThread.getName()+"\t invoked myUnLock()");
     }
 
     public static void main(String[] args){

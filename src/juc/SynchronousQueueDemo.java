@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
  * 每一个put操作必须等待一个take操作，否则不能添加元素，反之亦然
  */
 public class SynchronousQueueDemo {
+
     public static void main(String[] args){
 
         BlockingQueue<Integer> blockingQueue = new SynchronousQueue<>();
@@ -26,7 +27,9 @@ public class SynchronousQueueDemo {
             }
         },"AAA").start();
 
+        // 主线程睡眠一秒
         try{TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
+
         new Thread(()->{
             try{
                 try{ TimeUnit.SECONDS.sleep(5); } catch (InterruptedException e){ e.printStackTrace(); }

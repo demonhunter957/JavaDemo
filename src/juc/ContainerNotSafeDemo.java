@@ -40,7 +40,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 
 public class ContainerNotSafeDemo {
+
     public static void main(String[] args){
+
         //List<String> list = new ArrayList<>();
         //List<String> list = new Vector<>();
         //List<String> list = Collections.synchronizedList(new ArrayList<>());
