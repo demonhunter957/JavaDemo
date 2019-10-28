@@ -1,4 +1,4 @@
-1.jvm系统架构图
+1.jvm系统架构图，详见jvm_structure.png
 
 2.
 	2.1 4种类加载器
@@ -45,17 +45,23 @@
 7.	堆Heap
 	一个JVM实例只存在一个堆内存，堆内存的大小是可以调节的。类加载器读取了类文件后，需要把类、方法、常量变量放到堆内存中，保存所有引用类型的真实信息
 	堆内存逻辑上分为三部分（物理上只有两部分：新生区，占1/3空间+养老区2/3空间）：
-		Young Generation Space 新生区  Young/New， 新生区又分为三大部分：
-			（1） 伊甸园区（Eden Space）。eden区满时开始Young GC（轻量级GC）
+		1. Young Generation Space 新生区  Young/New， 新生区又分为三大部分：
+			（1） 伊甸园区（Eden Space）。eden区满时开始Young GC（轻量级GC/Minor GC）
 			（2） 幸存者0区（Survie0），又叫from区
 			（3） 幸存者1区（Survie1），又叫to区
 			注：
 				①from区和to区，他们的位置和名分不是固定的，每次GC之后都会交换，谁空谁是to
 				②Eden Space、Survie0、Survie1默认比例8:1:1，即Survie0和Survie1实际物理内存大小相等
 				
-		Tenure Generation Space 养老区 Old/Tenure
-		Permanent Space 永久区         Perm
+		2. Tenure Generation Space 养老区 Old/Tenure
+		3. Permanent Space 永久区         Perm
+			永久区是一个常驻内存区域，用于存放jdk自带的Class,Interface等元数据，即运行环境必须的类信息；
+			被装载进此区的数据是不会被GC的，关闭jvm才会释放此空间占用的内存；
+			java8中永久代已经被移除，被元空间取代。元空间本质和永久代类似，区别在于：永久代使用的是jvm的堆内存，而元空间使用的是本机物理内存。因此在默认情况下，元空间的大小仅受本地内存限制。
 		
 	如果出现OOM，说明JAVA虚拟机的堆内存不够，原因有二：
 		（1） JAVA虚拟机的内存设置不够，可以通过参数 -Xms -Xmx来调整
 		（2） 代码中创建了大量的大对象，并且长时间不能被GC（存在被引用）
+
+8. 对象的生命周期
+	VM参数：   -Xms1024m -Xmx1024m -XX:+PrintGCDetails
