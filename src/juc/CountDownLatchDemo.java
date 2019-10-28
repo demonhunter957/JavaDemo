@@ -31,7 +31,6 @@ public class CountDownLatchDemo {
 
 
 //lombok使用：https://projectlombok.org/
-//记得用lombok把代码修改好。。。。。
 @AllArgsConstructor
 enum CountryEnum{
 
