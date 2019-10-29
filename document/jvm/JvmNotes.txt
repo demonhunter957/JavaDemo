@@ -64,4 +64,6 @@
 		（2） 代码中创建了大量的大对象，并且长时间不能被GC（存在被引用）
 
 8. 对象的生命周期
-	VM参数：   -Xms1024m -Xmx1024m -XX:+PrintGCDetails
+	VM参数：   -Xms1024m 最小分配内存
+			 -Xmx1024m 最大分配内存
+			 -XX:+PrintGCDetails 打印GC细节
