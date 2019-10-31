@@ -64,6 +64,19 @@
 		（2） 代码中创建了大量的大对象，并且长时间不能被GC（存在被引用）
 
 8. 对象的生命周期
-	VM参数：   -Xms1024m 最小分配内存
-			 -Xmx1024m 最大分配内存
+	VM参数：   -Xms1024m 最小分配堆内存 等价于 -XX:InitialHeapSize
+			 -Xmx1024m 最大分配堆内存 等价于 -XX：MaxHeapSize
+			 -Xss 最小分配栈内存（单个线程栈大小？？？） 等价于-XX:ThreadStackSize
 			 -XX:+PrintGCDetails 打印GC细节
+			 
+	命令行：
+			jps -l     查看java进程
+			jstack 进程ID
+			jinfo -flag 配置项 进程ID    查看有没有开启这个功能
+						PringGCDetails
+						UseSerialGC
+					    MetaSpaceSize
+						MaxTenuringThreshold
+						InitialHeapSize
+			jinfo -flags 进程ID     打印出目前能搜索到的全部参数（能打印出两组，一组是JVM自带，一组是手动配置）
+			
