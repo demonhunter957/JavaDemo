@@ -64,9 +64,10 @@
 		（2） 代码中创建了大量的大对象，并且长时间不能被GC（存在被引用）
 
 8. 对象的生命周期
-	VM参数：   -Xms1024m 最小分配堆内存 等价于 -XX:InitialHeapSize
-			 -Xmx1024m 最大分配堆内存 等价于 -XX：MaxHeapSize
+	VM参数：   -Xms1024m 最小分配堆内存 等价于 -XX:InitialHeapSize=1024m
+			 -Xmx 最大分配堆内存 等价于 -XX：MaxHeapSize=1024m
 			 -Xss 最小分配栈内存（单个线程栈大小？？？） 等价于-XX:ThreadStackSize
+			 -Xmn 新生代大小，一般不调
 			 -XX:+PrintGCDetails 打印GC细节
 			 
 	命令行：
