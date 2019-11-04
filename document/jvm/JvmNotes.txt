@@ -50,7 +50,7 @@
 			（2） 幸存者0区（Survie0），又叫from区
 			（3） 幸存者1区（Survie1），又叫to区
 			注：
-				①from区和to区，他们的位置和名分不是固定的，每次GC之后都会交换，谁空谁是to
+				①from区和to区，他们的位置和名分不是固定的，每次GC：复制之后有交换，谁空谁是to
 				②Eden Space、Survie0、Survie1默认比例8:1:1，即Survie0和Survie1实际物理内存大小相等
 				
 		2. Tenure Generation Space 养老区 Old/Tenure
@@ -63,12 +63,32 @@
 		（1） JAVA虚拟机的内存设置不够，可以通过参数 -Xms -Xmx来调整
 		（2） 代码中创建了大量的大对象，并且长时间不能被GC（存在被引用）
 
-8. 对象的生命周期
-	VM参数：   -Xms1024m 最小分配堆内存 等价于 -XX:InitialHeapSize=1024m
-			 -Xmx 最大分配堆内存 等价于 -XX：MaxHeapSize=1024m
-			 -Xss 最小分配栈内存（单个线程栈大小？？？） 等价于-XX:ThreadStackSize
-			 -Xmn 新生代大小，一般不调
-			 -XX:+PrintGCDetails 打印GC细节
+8. GC
+	8.1 四大GC算法：引用计数法、复制算法、标记清楚、标记压缩
+	
+	8.2 四大引用类型：强引用、软引用、弱引用、虚引用
+	
+		强引用：强引用是最常见的普通对象引用，只要还有一个强引用指向一个对象，垃圾回收器就不会触碰这个对象；
+				当一个对象被强引用变量引用时，它处于可达状态，是不能被GC的，即使该对象以后永远都不会用到也不会被GC;
+				因此强引用是造成OOM的主要原因；
+				对于一个普通对象，如果没有其他的引用关系，只要超过了引用的作用域或者显式地将（强）引用值改为Null，一般认为就是可以被GC了。
+		软引用：软引用是一种相对强引用弱化了的引用，需要用java.lang.ref.SoftReferenc来实现；
+				对于只有被软引用的对象来说，当系统内存充足时不会被GC，当系统内存不足时才被GC；
+				软引用通常用在对内存敏感的程序中，比如高速缓存。
+		弱引用：不管内存是否够用只要GC了一定回收；
+		        需要用java.lang.ref.WeakReference类来实现
+		
+
+9. JVM调优
+	VM参数：   
+			-Xms1024m 最小分配堆内存 等价于 -XX:InitialHeapSize=1024m
+			-Xmx 最大分配堆内存 等价于 -XX：MaxHeapSize=1024m
+			-Xss 最小分配栈内存（单个线程栈大小？？？） 等价于-XX:ThreadStackSize
+			-Xmn 新生代大小，一般不调
+			-XX:+PrintGCDetails 打印GC细节
+			-XX:SurvivorRatio=i 设置eden,s0,s1区的内存分配比例为i:1:1。默认值为8.
+			-XX:NewRatio=i   设置老年代占比为i，新生代为1。默认值为2。
+			-XX:MaxTenuringThreshold  设置垃圾最大年龄。如果设置为0的话，则年轻代对象不经过survivor区，直接进入老年代。java8规定这个参数值必须在0-15。
 			 
 	命令行：
 			jps -l     查看java进程
@@ -80,4 +100,6 @@
 						MaxTenuringThreshold
 						InitialHeapSize
 			jinfo -flags 进程ID     打印出目前能搜索到的全部参数（能打印出两组，一组是JVM自带，一组是手动配置）
-			
+			java -XX:+PrintFlagsInitial      盘点jvm各项初始参数
+			java -XX:PrintFlagsFinal -version       盘点修改后的各项jvm参数("="是初始值，":="是修改后的值)
+			java -XX:PrintCommandLineFlags -version
