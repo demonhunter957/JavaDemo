@@ -1,4 +1,3 @@
-*****add the first line for merge test*******
 1.jvm系统架构图，详见jvm_structure.png
 
 2.
@@ -48,11 +47,11 @@
 	堆内存逻辑上分为三部分（物理上只有两部分：新生区，占1/3空间+养老区2/3空间）：
 		1. Young Generation Space 新生区  Young/New， 新生区又分为三大部分：
 			（1） 伊甸园区（Eden Space）。eden区满时开始Young GC（轻量级GC/Minor GC）
-			（2） 幸存者0区（Survie0），又叫from区
-			（3） 幸存者1区（Survie1），又叫to区
+			（2） 幸存者0区（Survive0），又叫from区
+			（3） 幸存者1区（Survive1），又叫to区
 			注：
 				①from区和to区，他们的位置和名分不是固定的，每次GC：复制之后有交换，谁空谁是to
-				②Eden Space、Survie0、Survie1默认比例8:1:1，即Survie0和Survie1实际物理内存大小相等
+				②Eden Space、Survive0、Survive1默认比例8:1:1，即Survive0和Survive1实际物理内存大小相等
 				
 		2. Tenure Generation Space 养老区 Old/Tenure
 		3. Permanent Space 永久区         Perm
@@ -99,12 +98,12 @@
 			jps -l     查看java进程
 			jstack 进程ID
 			jinfo -flag 配置项 进程ID    查看有没有开启这个功能
-						PringGCDetails
+						PrintGCDetails
 						UseSerialGC
 					    MetaSpaceSize
 						MaxTenuringThreshold
 						InitialHeapSize
 			jinfo -flags 进程ID     打印出目前能搜索到的全部参数（能打印出两组，一组是JVM自带，一组是手动配置）
 			java -XX:+PrintFlagsInitial      盘点jvm各项初始参数
-			java -XX:PrintFlagsFinal -version       盘点修改后的各项jvm参数("="是初始值，":="是修改后的值)
-			java -XX:PrintCommandLineFlags -version
+			java -XX:+PrintFlagsFinal -version       盘点修改后的各项jvm参数("="是初始值，":="是修改后的值)
+			java -XX:+PrintCommandLineFlags -version
