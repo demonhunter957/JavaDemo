@@ -21,7 +21,7 @@ public class CallableDemo {
         Thread thread = new Thread(futureTask, "t1");
         thread.start();
 
-//        以上三行等同于：new Thread(new FutureTask<Integer>(new MyThread())).start();
+//        以上三行等同于：new Thread(new FutureTask<Integer>(new MyThread())，"t1").start();
         System.out.println(futureTask.get()); //获得Callable线程的计算结果，如果没有计算完成就要强求，会导致阻塞，直到计算完成，建议放在最后
     }
 }
