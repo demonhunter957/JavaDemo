@@ -7,11 +7,11 @@ import java.util.concurrent.locks.ReentrantLock;
 
 class ShareData{
 
-    private int number = 0;
+    private int number;
     private Lock lock = new ReentrantLock();
     private Condition condition = lock.newCondition();
 
-    public void increment() throws InterruptedException {
+    public void increment() {
         lock.lock();
         try{
             //1.判断
@@ -30,7 +30,7 @@ class ShareData{
         }
     }
 
-    public void decrement() throws InterruptedException {
+    public void decrement() {
         lock.lock();
         try{
             //1.判断
@@ -69,7 +69,7 @@ public class ProdConsumer_TraditionalDemo {
                 try {
                     shareData.increment();
                     try{TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-                } catch (InterruptedException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -80,7 +80,7 @@ public class ProdConsumer_TraditionalDemo {
                 try {
                     shareData.decrement();
                     try{TimeUnit.SECONDS.sleep(1);} catch (InterruptedException e) {e.printStackTrace();}
-                } catch (InterruptedException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
