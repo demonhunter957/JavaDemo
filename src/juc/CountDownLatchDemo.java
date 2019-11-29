@@ -34,8 +34,8 @@ public class CountDownLatchDemo {
 @AllArgsConstructor
 enum CountryEnum{
 
-    ONE(0,"齐国"),TWO(1,"楚国"),THREE(2,"燕国"),
-    FOUR(3,"赵国"),FIVE(4,"魏国"),SIX(5,"韩国");
+    QI(0,"齐国"),CHU(1,"楚国"),YAN(2,"燕国"),
+    ZHAO(3,"赵国"),WEI(4,"魏国"),HAN(5,"韩国");
 
     @Getter
     private Integer index;
