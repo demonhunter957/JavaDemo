@@ -18,6 +18,10 @@ public class MyThreadPoolDemo {
      *   (2)CallerRunsPolicy “调用者运行”一种调节机制，不会抛弃任务也不会抛出异常，而是将某些任务回退到调用者，从而降低新任务的流量
      *   (3)DiscardOldestPolicy 抛弃队列中等待最久的任务，然后把当前任务加入队列中尝试再次提交当前任务
      *   (4)DiscardPolicy 丢弃无法处理的任务，不予任何处理也不抛异常。如果任务允许丢失，这是最好的一种策略。
+     *
+     * 如何配置最大线程数？
+     * （1）如果是CPU密集型，则配置成：CPU可用核心数+1或2
+     * （2）如果是IO密集型，则配置成：CPU可用核心数/（1 - 阻塞系数），阻塞系数在在0到1范围内
      */
     private static void selfDefinedThreadPool() {
         ExecutorService threadPool = new ThreadPoolExecutor(2, //核心常驻线程数
