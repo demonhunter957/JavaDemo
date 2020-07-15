@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * countdownLatch让一些线程阻塞知道另一些线程完成一些列操作后才被唤醒
+ * countdownLatch让一些线程阻塞直到另一些线程完成一些列操作后才被唤醒
  * countdownLatch.await()：当一个或多个线程调用此方法时，调用线程会被阻塞
  * countdownLatch.countDown()：其他线程调用此方法时，会将计数器减1（调用此方法的线程不会阻塞）
  * 当计数器的值变为0时，调用await()方法被阻塞的线程会被唤醒，继续执行
