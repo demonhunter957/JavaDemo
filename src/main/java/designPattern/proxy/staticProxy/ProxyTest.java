@@ -1,12 +1,13 @@
 package designPattern.proxy.staticProxy;
 
+import designPattern.proxy.BuyHouse;
+import designPattern.proxy.BuyHouseImpl;
+
 public class ProxyTest {
 
     public static void main(String[] args) {
         BuyHouse buyHouse = new BuyHouseImpl();
-        buyHouse.buy();
-        System.out.println("------------------------------");
-        BuyHouseProxy buyHouseProxy = new BuyHouseProxy(buyHouse);
+        BuyHouseStaticProxy buyHouseProxy = new BuyHouseStaticProxy(buyHouse);
         buyHouseProxy.buy();
     }
 }
