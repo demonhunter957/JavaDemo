@@ -1,4 +1,4 @@
-package designPattern.proxy.dynamicProxy;
+package designPattern.proxy.dynamicProxy.jdkProxy;
 
 import designPattern.proxy.BuyHouse;
 import designPattern.proxy.BuyHouseImpl;
