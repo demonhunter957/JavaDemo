@@ -11,7 +11,7 @@ public class SingletonDemo01 {
     private SingletonDemo01(){}
 
     //创建一个初始值为空的私有静态属性
-    private static SingletonDemo01 instance;
+    private static volatile SingletonDemo01 instance;
 
     //对外提供构造方法
     public static SingletonDemo01 getInstance(){
